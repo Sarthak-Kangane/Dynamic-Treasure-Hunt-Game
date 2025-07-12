@@ -37,9 +37,16 @@ A modern, fully admin-driven, AI-powered treasure hunt platform for teams!
 - **Security & Fairness:**  
   - Location verification via QR codes.
   - Admin-only controls for sensitive actions.
+ 
 
-- **Extensible:**  
-  - Easily add new features (e.g., geolocation, power-ups, analytics).
+  ## Screenshots
+
+  <img width="1098" height="793" alt="Screenshot 2025-07-12 at 5 40 29 PM" src="https://github.com/user-attachments/assets/2715509f-cfda-4324-8dc0-a9641948cbff" />
+
+  <img width="1434" height="783" alt="Screenshot 2025-07-12 at 5 28 03 PM" src="https://github.com/user-attachments/assets/cdfa9260-291b-4e4e-808a-8f434eaf5a99" />
+  
+  <img width="956" height="782" alt="Screenshot 2025-07-12 at 5 44 50 PM" src="https://github.com/user-attachments/assets/e78154b7-2deb-46d6-853a-680547551511" />
+
  
   ## Getting Started
 
