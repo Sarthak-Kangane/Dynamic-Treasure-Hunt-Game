@@ -18,10 +18,12 @@ export async function POST(req) {
 
         // Generate a random password for the team
         const password = generateRandomPassword();
-        console.log("Hellooo                                        !!!!!!!!!!!!!!!!!!!: ",password);
-        // Generate a random path of 12 locations
-        const locationPath = generateRandomPath();
-        console.log(locationPath);
+        // Fetch the number of locations from /api/gameConfig
+        const configRes = await fetch(process.env.NEXT_PUBLIC_BASE_URL ? `${process.env.NEXT_PUBLIC_BASE_URL}/api/gameConfig` : "http://localhost:3000/api/gameConfig");
+        const config = await configRes.json();
+        const numLocations = config.numLocations || 12;
+        // Generate a random path of numLocations
+        const locationPath = generateRandomPath(numLocations);
 
         // Create a new team
         const newTeam = new Team({

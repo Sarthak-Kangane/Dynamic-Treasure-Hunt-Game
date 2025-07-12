@@ -51,17 +51,41 @@ const AdminPage = () => {
 
     return (
         <div className="min-h-screen flex justify-center items-center bg-gray-800">
-            <div className="bg-black p-8 rounded-md shadow-md w-80">
-                <h1 className="text-2xl font-semibold text-center mb-4 text-white">Admin Page</h1>
-                <button onClick={handleLogout} className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 mb-4">
-                    Log out
-                </button>
-                <button onClick={handleRegisterClick} className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 mb-4">
-                    Register a Team
-                </button>
-                <button onClick={handleDashboardClick} className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 mb-4">
-                    See Dashboard
-                </button>
+            <div className="bg-black p-8 rounded-md shadow-md w-96">
+                <h1 className="text-3xl font-semibold text-center mb-6 text-white">Admin Control Panel</h1>
+                
+                <div className="space-y-4">
+                    <button 
+                        onClick={handleDashboardClick} 
+                        className="w-full bg-green-600 text-white py-3 rounded-md hover:bg-green-700 text-lg font-semibold"
+                    >
+                        🎮 Game Dashboard
+                    </button>
+                    
+                    <button 
+                        onClick={handleRegisterClick} 
+                        className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 text-lg font-semibold"
+                    >
+                        ➕ Register a Team
+                    </button>
+                    
+                    <button 
+                        onClick={handleLogout} 
+                        className="w-full bg-red-600 text-white py-3 rounded-md hover:bg-red-700 text-lg font-semibold"
+                    >
+                        🚪 Log out
+                    </button>
+                </div>
+                
+                <div className="mt-6 p-4 bg-gray-700 rounded-md">
+                    <h3 className="text-lg font-semibold text-white mb-2">Quick Guide:</h3>
+                    <ul className="text-sm text-gray-300 space-y-1">
+                        <li>• Use Dashboard to start game and monitor teams</li>
+                        <li>• Register teams before starting the game</li>
+                        <li>• Game runs for 2 hours maximum</li>
+                        <li>• First team to answer all 12 questions wins</li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

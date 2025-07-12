@@ -1,5 +1,5 @@
-function generateRandomPath() {
-    const locations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];  // Your 12 locations
+function generateRandomPath(count = 12) {
+    const locations = Array.from({ length: count }, (_, i) => i + 1);
     let shuffledLocations = [...locations];
 
     // Shuffle the locations array

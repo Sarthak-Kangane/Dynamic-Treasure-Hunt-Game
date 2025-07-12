@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Treasure Hunt Game - Enhanced Version
 
-## Getting Started
+A real-time treasure hunt game with enhanced winning logic and admin controls.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🎮 Game Logic
+- **2-hour game duration** with automatic timer
+- **Two winning conditions**:
+  1. First team to answer all 12 questions wins immediately
+  2. If no team completes all questions, the team with the most answers after 2 hours wins
+- **Real-time game status** tracking
+- **Automatic game end** when time expires
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 👨‍💼 Admin Controls
+- **Start Game Button**: Admin can start the game when ready
+- **Real-time Dashboard**: Monitor all teams' progress live
+- **Game Status Display**: Shows current game state, time remaining, and winner
+- **Reset Game**: Clear all team progress for testing
+- **Winner Announcement**: Automatic winner display when game ends
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 🏆 Winning Team Display
+- **Immediate winner detection** when a team answers all 12 questions
+- **Winner banner** appears on all player screens
+- **Admin dashboard** highlights the winning team
+- **Leaderboard ranking** shows team positions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🎯 Player Experience
+- **Game status indicator** on player screens
+- **Time remaining display** during active games
+- **Disabled interactions** when game hasn't started
+- **Real-time leaderboard** for players
+- **Winner celebration** when game ends
 
-## Learn More
+## API Endpoints
 
-To learn more about Next.js, take a look at the following resources:
+### New Endpoints
+- `POST /api/startGame` - Start the game
+- `GET /api/gameStatus` - Get current game status
+- `POST /api/resetGame` - Reset game state (for testing)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Enhanced Endpoints
+- `GET /api/admin` - Now includes game status and winner information
+- `POST /api/answerQuestion` - Now checks game state and handles winning conditions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How to Use
 
-## Deploy on Vercel
+### For Admins:
+1. **Access Admin Panel**: Go to `/admin` and enter password "admin"
+2. **Register Teams**: Use "Register a Team" button to add teams
+3. **Start Game**: Click "Game Dashboard" then "Start Game" button
+4. **Monitor Progress**: Watch real-time team progress and time remaining
+5. **View Results**: Winner is automatically announced when game ends
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### For Players:
+1. **Login**: Use team credentials at `/userLogin`
+2. **Check Game Status**: See if game has started and time remaining
+3. **Answer Questions**: Scan QR codes and submit answers
+4. **View Leaderboard**: Check current rankings
+5. **Celebrate**: Winner banner appears when game ends
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Game Rules
+
+1. **Game Duration**: 2 hours maximum
+2. **Winning Conditions**:
+   - First team to answer all 12 questions wins immediately
+   - If no team completes all questions, team with most answers after 2 hours wins
+3. **Question Sequence**: Teams must answer questions in order
+4. **Location Verification**: Teams must be at correct location to answer
+5. **Real-time Updates**: All progress updates in real-time
+
+## Technical Details
+
+- **Game State Management**: MongoDB Game model tracks game status
+- **Real-time Updates**: 5-second polling for live updates
+- **Winner Detection**: Automatic detection in answerQuestion API
+- **Timer Management**: Server-side timeout for game end
+- **Responsive UI**: Modern, mobile-friendly interface
+
+## Testing
+
+Use the "Reset Game" button in the admin dashboard to clear all progress and test the game flow multiple times.

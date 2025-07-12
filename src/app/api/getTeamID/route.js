@@ -1,5 +1,6 @@
 import { connectDb } from "../../../utils/db";
 import { Team } from "../../../models/Team";
+import { Location } from "../../../models/Location.js";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -20,11 +21,28 @@ export async function POST(req) {
             return NextResponse.json({ message: "Team not found" }, { status: 404 });
         }
 
-        // Respond with the team ID, team name, and currentLocation
+        // Get the current location from the team's path
+        const currentLocation = team.locationPath[team.currentLocationIndex];
+        // Fetch the location hint for this location
+        let locationHint = "Location hint not available.";
+        try {
+            const location = await Location.findOne({ locationName: currentLocation });
+            
+            console.log("Found location:", location);
+            if (location) {
+                locationHint = location.hint;
+            }
+        } catch (error) {
+            console.error("Error fetching location hint:", error);
+        }
+
+        // Respond with the team ID, team name, currentLocation, and location hint
         return NextResponse.json({ 
             teamId: team._id,
             teamName: team.teamName,
-            currentLocation: team.locationPath[team.currentLocationIndex]
+            currentLocation: currentLocation,
+            currentLocationIndex: team.currentLocationIndex,
+            locationHint: locationHint
         });
     } catch (err) {
         console.error("Error finding team:", err); // Log the error for debugging

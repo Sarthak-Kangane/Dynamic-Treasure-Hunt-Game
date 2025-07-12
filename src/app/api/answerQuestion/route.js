@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDb } from "../../../utils/db";
 import { Team } from "../../../models/Team";
 import Question from "../../../models/Question";
+import Game from "../../../models/Game";
 
 export async function POST(req) {
     await connectDb();
@@ -9,6 +10,17 @@ export async function POST(req) {
     const { teamId, answer, curr_location } = await req.json();
 
     try {
+        // Check if game is started
+        const game = await Game.findOne();
+        if (!game || !game.isGameStarted) {
+            return NextResponse.json({ message: "Game has not started yet" }, { status: 400 });
+        }
+
+        // Check if game is already over
+        if (game.isGameOver) {
+            return NextResponse.json({ message: "Game is already over" }, { status: 400 });
+        }
+
         const team = await Team.findById(teamId);
 
         if (!team) {
@@ -62,6 +74,24 @@ export async function POST(req) {
             }
 
             await team.save();
+
+            // Check if this team has answered all questions (winner condition)
+            const totalQuestions = await Question.countDocuments();
+            if (team.answeredQuestions.size === totalQuestions) {
+                // This team has won by answering all questions
+                game.isGameOver = true;
+                game.winner = team._id;
+                await game.save();
+                
+                return NextResponse.json(
+                    { 
+                        message: "Correct answer! 🎉 CONGRATULATIONS! You have answered all questions and won the game! 🏆",
+                        isWinner: true,
+                        teamName: team.teamName
+                    },
+                    { status: 200 }
+                );
+            }
 
             return NextResponse.json(
                 { message: "Correct answer! Move to the next location" },
